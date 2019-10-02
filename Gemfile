@@ -12,6 +12,7 @@ gem 'react-rails'
 
 group :development, :test do
 	gem 'rspec-rails'
+	gem 'shoulda-matchers'
 end
 
 # Use SCSS for stylesheets
