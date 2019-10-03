@@ -1,3 +1,6 @@
+import React from "react"
+import ContactList from "./ContactList"
+
 class Application extends React.Component {
   
   constructor(props) {
@@ -24,3 +27,4 @@ class Application extends React.Component {
   }
 
 }
+export default Application

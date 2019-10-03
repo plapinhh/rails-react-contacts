@@ -1,3 +1,4 @@
+import React from "react"
 class ContactList extends React.Component {
   render(){
 
@@ -25,3 +26,4 @@ class ContactList extends React.Component {
     )
   }
 }
+export default ContactList
