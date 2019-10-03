@@ -1,5 +1,9 @@
 import React from "react"
 class ContactList extends React.Component {
+  static defaultProps = {
+    contacts: []
+  }
+
   render(){
 
     if (!this.props.contacts.length)

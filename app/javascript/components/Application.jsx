@@ -1,19 +1,25 @@
 import React from "react"
 import ContactList from "./ContactList"
 
+import { fetchContacts } from '../store/apiCalls'
+
 class Application extends React.Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      contacts: []
+      contacts: [],
+      errorStatus: null
     };
   }
 
-  componentDidMount(){
-    fetch('/api/v1/contacts.json')
-      .then((response) => {console.log(response);return response.json()})
-      .then((data) => {this.setState({ contacts: data }) });
+  async componentDidMount() {
+    try {
+      const data = await fetchContacts()
+      this.setState({contacts: data})
+    } catch(err) {
+      this.setState({errorStatus: err.message})
+    }
   }
 
   render(){
