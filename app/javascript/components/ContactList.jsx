@@ -1,4 +1,5 @@
 import React from "react"
+
 class ContactList extends React.Component {
   static defaultProps = {
     contacts: []
@@ -25,9 +26,11 @@ class ContactList extends React.Component {
 
     return(
       <div>
+        <h2>Stored contacts</h2>
         {contacts}
       </div>
     )
   }
 }
+
 export default ContactList

@@ -1,5 +1,6 @@
 import React from "react"
 import ContactList from "./ContactList"
+import ContactNew from "./ContactNew"
 
 import { fetchContacts } from '../store/apiCalls'
 
@@ -11,6 +12,13 @@ class Application extends React.Component {
       contacts: [],
       errorStatus: null
     };
+    this.addContact = this.addContact.bind(this)
+  }
+
+  addContact(contact){
+    this.setState({
+      contacts: this.state.contacts.concat(contact)
+    })
   }
 
   async componentDidMount() {
@@ -26,8 +34,9 @@ class Application extends React.Component {
     return(
       <div>
         <h1>Contacts</h1>
-
+        <ContactNew addContact={this.addContact}/>
         <ContactList contacts={this.state.contacts} />
+        <p>{this.state.errorStatus}</p>
       </div>
     )
   }

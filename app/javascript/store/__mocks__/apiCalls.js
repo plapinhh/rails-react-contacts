@@ -6,3 +6,11 @@ export const fetchContacts = jest.fn()
   .mockImplementationOnce(() => {
     throw(new Error('Error loading contacts'))
   })
+
+export const createContact = jest.fn()
+  .mockImplementationOnce(() => (
+  	{ id: 1, first_name: 'A', last_name: 'B', email: 'C', phone: 12345 }
+  ))
+  .mockImplementationOnce(() => {
+    throw(new Error('Error adding contact'))
+  })
