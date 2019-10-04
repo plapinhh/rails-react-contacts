@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import ContactList from 'components/ContactList'
 
 describe('ContactList component', () => {
@@ -18,7 +18,7 @@ describe('ContactList component', () => {
   describe('when contacts list is given', () => {
     it('render contact items', () => {
       const contacts = [{id: 0, first_name: 'A', last_name: 'B', phone: 123, email: 'C'}]
-      const renderedComponent = shallow(<ContactList contacts={contacts}  />)
+      const renderedComponent = mount(<ContactList contacts={contacts}  />)
 
       expect(renderedComponent.text()).toMatch(/A B/)
       expect(renderedComponent.text()).toMatch(/Email: C/)

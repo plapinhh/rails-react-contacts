@@ -1,5 +1,7 @@
 import React from "react"
 
+import ContactItem from "./ContactItem"
+
 class ContactList extends React.Component {
   static defaultProps = {
     contacts: []
@@ -17,9 +19,7 @@ class ContactList extends React.Component {
     var contacts = this.props.contacts.map((contact) => {
       return(
         <div key={contact.id}>
-          <dt>{contact.first_name} {contact.last_name}</dt>
-          <dd>Email: {contact.email}</dd>
-          <dd>Phone: {contact.phone}</dd>
+          <ContactItem contact={contact} removeContact={this.props.removeContact} />
         </div>
       )
     })

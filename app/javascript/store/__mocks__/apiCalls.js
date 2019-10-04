@@ -14,3 +14,11 @@ export const createContact = jest.fn()
   .mockImplementationOnce(() => {
     throw(new Error('Error adding contact'))
   })
+
+export const deleteContact = jest.fn()
+  .mockImplementationOnce(() => (
+  	{}
+  ))
+  .mockImplementationOnce(() => {
+    throw(new Error('Error deleting contact'))
+  })

@@ -22,3 +22,14 @@ export const createContact = async (attrs) => {
     return await response.json()
   }
 }
+
+export const deleteContact = async (id) => {
+  const response = await fetch(`/api/v1/contacts/${id}`, {
+    method: 'DELETE'
+  })
+  if(response.status >= 400) {
+    throw(new Error('Error deleting contact'))
+  } else {
+    return
+  }
+}

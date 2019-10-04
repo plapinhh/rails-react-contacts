@@ -13,11 +13,18 @@ class Application extends React.Component {
       errorStatus: null
     };
     this.addContact = this.addContact.bind(this)
+    this.removeContact = this.removeContact.bind(this)
   }
 
   addContact(contact){
     this.setState({
       contacts: this.state.contacts.concat(contact)
+    })
+  }
+
+  removeContact(contact){
+    this.setState({
+      contacts: this.state.contacts.filter((item) => item.id !== contact.id)
     })
   }
 
@@ -35,7 +42,7 @@ class Application extends React.Component {
       <div>
         <h1>Contacts</h1>
         <ContactNew addContact={this.addContact}/>
-        <ContactList contacts={this.state.contacts} />
+        <ContactList contacts={this.state.contacts} removeContact={this.removeContact} />
         <p>{this.state.errorStatus}</p>
       </div>
     )

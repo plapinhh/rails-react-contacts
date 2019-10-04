@@ -20,6 +20,7 @@ class Api::V1::ContactsController < ApplicationController
 
   def destroy
     Contact.destroy(params[:id])
+    head :no_content
   end
 
   private
