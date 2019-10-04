@@ -1,43 +1,33 @@
 import React from "react"
 
-import { deleteContact } from '../store/apiCalls'
+import ContactShow from "./ContactShow"
+import ContactEdit from "./ContactEdit"
 
 class ContactItem extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      errorStatus: null
+      editing: false
     };
-    this.handleDelete = this.handleDelete.bind(this)
-    this.persistDelete = this.persistDelete.bind(this)
+    this.toggleEdit = this.toggleEdit.bind(this)
   }
 
-  handleDelete(contact){
-    if (confirm("Delete contact?")) {
-      this.persistDelete(contact)
-    }
-  }
-
-  async persistDelete(contact) {
-    try {
-      await deleteContact(contact.id)
-      this.props.removeContact(contact)
-    } catch(err) {
-      this.setState({errorStatus: err.message})
-    }
+  toggleEdit(contact){
+    this.setState({editing: !this.state.editing})
   }
   
   render(){
+    if (this.state.editing)
+      return(
+        <div>
+          <ContactEdit contact={this.props.contact} toggleEdit={this.toggleEdit} />
+        </div>
+      )
+
     return(
       <div>
-        <dt>{this.props.contact.first_name} {this.props.contact.last_name}</dt>
-        <dd>Email: {this.props.contact.email}</dd>
-        <dd>Phone: {this.props.contact.phone}</dd>
-        <dd>
-          <button onClick={() => this.handleDelete(this.props.contact)}>Delete</button>
-          {this.state.errorStatus}
-        </dd>
+        <ContactShow contact={this.props.contact} toggleEdit={this.toggleEdit} removeContact={this.props.removeContact} />
       </div>
     )      
   }

@@ -46,13 +46,13 @@ RSpec.describe 'Contacts', type: :request do
       post api_v1_contacts_path(contact: {
         first_name: 'Max',
         last_name: '',
-        email: 'mmustermann@t-online.de',
-        phone: '+49 30 53705081'
+        email: 'mmustermann@t-online.de'
       })
       expect(response).to have_http_status(422)
 
-      json = JSON.parse(response.body)
-      expect(json['errors']['last_name'][0]).to eq('can\'t be blank')
+      error_msg = response.body
+      expect(error_msg).to match(/Last name can\'t be blank/)
+      expect(error_msg).to match(/Phone can\'t be blank/)
 
       get api_v1_contacts_path
       expect(response).to have_http_status(200)
@@ -70,8 +70,8 @@ RSpec.describe 'Contacts', type: :request do
       })
       expect(response).to have_http_status(422)
 
-      json = JSON.parse(response.body)
-      expect(json['errors']['email'][0]).to eq('has already been taken')
+      error_msg = response.body
+      expect(error_msg).to match(/Email has already been taken/)
 
       get api_v1_contacts_path
       expect(response).to have_http_status(200)
@@ -100,8 +100,8 @@ RSpec.describe 'Contacts', type: :request do
       patch api_v1_contact_path(id: @contact.id, contact: {first_name: ''})
       expect(response).to have_http_status(422)
 
-      json = JSON.parse(response.body)
-      expect(json['errors']['first_name'][0]).to eq('can\'t be blank')
+      error_msg = response.body
+      expect(error_msg).to match(/First name can\'t be blank/)
     end
 
     it 'returns an error for non-unique email address' do
@@ -115,8 +115,8 @@ RSpec.describe 'Contacts', type: :request do
       patch api_v1_contact_path(id: other_contact.id, contact: {email: @contact.email})
       expect(response).to have_http_status(422)
 
-      json = JSON.parse(response.body)
-      expect(json['errors']['email'][0]).to eq('has already been taken')
+      error_msg = response.body
+      expect(error_msg).to match(/Email has already been taken/)
     end
   end
 

@@ -10,12 +10,12 @@ describe('ContactForm component', () => {
       const renderedComponent = mount(<ContactForm persistContact={persistContact} />)
       const instance = renderedComponent.instance();
 
-      const spy = jest.spyOn(instance, 'handleFormSubmit');
+      const handleFormSubmit = jest.spyOn(instance, 'handleFormSubmit');
 
       renderedComponent.find('input').first().simulate('change', { target: { value: 'Test' } })
       renderedComponent.find("form").simulate('submit');
 
-      expect(spy).toHaveBeenCalled();
+      expect(handleFormSubmit).toHaveBeenCalled();
       expect(persistContact).toHaveBeenCalled();
     })
   })

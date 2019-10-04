@@ -15,6 +15,14 @@ export const createContact = jest.fn()
     throw(new Error('Error adding contact'))
   })
 
+export const updateContact = jest.fn()
+  .mockImplementationOnce(() => (
+  	{ id: 1, first_name: 'A', last_name: 'B', email: 'C', phone: 12345 }
+  ))
+  .mockImplementationOnce(() => {
+    throw(new Error('Error adding contact'))
+  })
+
 export const deleteContact = jest.fn()
   .mockImplementationOnce(() => (
   	{}

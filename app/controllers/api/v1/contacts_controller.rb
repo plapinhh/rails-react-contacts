@@ -30,11 +30,11 @@ class Api::V1::ContactsController < ApplicationController
   end
 
   def unprocessable_entity_response(exception)
-    render json: {errors: exception.record.errors}, status: :unprocessable_entity
+    render plain: exception.record.errors.full_messages.to_sentence, status: :unprocessable_entity
   end
 
   def not_found_response(exception)
-    render json: {error: exception.message}, status: :not_found
+    render plain: exception.message, status: :not_found
   end
 
 end

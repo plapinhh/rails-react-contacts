@@ -1,4 +1,4 @@
-import { fetchContacts, createContact, deleteContact } from 'store/apiCalls'
+import { fetchContacts, createContact, updateContact, deleteContact } from 'store/apiCalls'
 
 describe('apiCalls', () => {
   describe('fetchContacts', () => {
@@ -37,9 +37,36 @@ describe('apiCalls', () => {
     it('throws an error if status code is not ok', () => {
       window.fetch = jest.fn().mockImplementation(() => ({
         status: 500,
+        text: () => new Promise((resolve, reject) => {
+          reject(Error('Error adding contact'))
+        }),
       }))
 
       expect(createContact()).rejects.toEqual(Error('Error adding contact'))
+    })
+  })
+
+  describe('updateContact', () => {
+    it('returns an object if status code is ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => ({
+        status: 200,
+        json: () => new Promise((resolve, reject) => {
+          resolve({})
+        }),
+      }))
+
+      expect(updateContact({})).resolves.toEqual({})
+    })
+
+    it('throws an error if status code is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => ({
+        status: 500,
+        text: () => new Promise((resolve, reject) => {
+          reject(Error('Error updating contact'))
+        }),
+      }))
+
+      expect(updateContact({})).rejects.toEqual(Error('Error updating contact'))
     })
   })
 
@@ -58,9 +85,12 @@ describe('apiCalls', () => {
     it('throws an error if contact is not found', () => {
       window.fetch = jest.fn().mockImplementation(() => ({
         status: 404,
+        text: () => new Promise((resolve, reject) => {
+          resolve('')
+        }),
       }))
 
-      expect(deleteContact()).rejects.toEqual(Error('Error deleting contact'))
+      expect(deleteContact()).rejects.toEqual(Error('Error deleting contact: '))
     })
   })
 })

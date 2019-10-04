@@ -2,6 +2,12 @@ import React from "react"
 
 class ContactForm extends React.Component {
 
+  static defaultProps = {
+    contact: {},
+    submitButtonText: 'Save',
+    resetButtonText: 'Cancel'
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +18,7 @@ class ContactForm extends React.Component {
 
   handleFormSubmit(e, fields){
     const attrs = {
+      id: this.props.contact.id,
       first_name: fields.first_name.value,
       last_name: fields.last_name.value,
       email: fields.email.value,
@@ -23,14 +30,16 @@ class ContactForm extends React.Component {
 
   render(){
     let formFields = {}
+
     return(
       <div>
         <form onSubmit={ (e) => { this.handleFormSubmit(e, formFields) } }>
-          <input ref={input => formFields.first_name = input} placeholder='First name'/>
-          <input ref={input => formFields.last_name = input} placeholder='Last name'/>
-          <input ref={input => formFields.email = input} placeholder='Email'/>
-          <input ref={input => formFields.phone = input} placeholder='Phone number' />
-          <button>Add</button>
+          <input ref={input => formFields.first_name = input} defaultValue={this.props.contact.first_name} placeholder='First name'/>
+          <input ref={input => formFields.last_name = input} defaultValue={this.props.contact.last_name} placeholder='Last name'/>
+          <input ref={input => formFields.email = input} defaultValue={this.props.contact.email} placeholder='Email'/>
+          <input ref={input => formFields.phone = input} defaultValue={this.props.contact.phone} placeholder='Phone number' />
+          <button type="submit">{this.props.submitButtonText}</button>
+          <button type="button" onClick={(e) => this.props.cancelForm(e)}>{this.props.resetButtonText}</button>
         </form>
       </div>
     )

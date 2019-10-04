@@ -12,6 +12,12 @@ class ContactNew extends React.Component {
       errorStatus: null
     };
     this.persistContact = this.persistContact.bind(this)
+    this.resetForm = this.resetForm.bind(this)
+  }
+
+  resetForm(e){
+    e.target.form.reset()
+    this.setState({errorStatus: null})
   }
 
   async persistContact(form, attrs) {
@@ -29,7 +35,12 @@ class ContactNew extends React.Component {
     return(
       <div>
         <h2>Create contact</h2>
-        <ContactForm persistContact={this.persistContact}/>
+        <ContactForm 
+          persistContact={this.persistContact} 
+          cancelForm={this.resetForm} 
+          submitButtonText='Add' 
+          resetButtonText='Reset' 
+        />
         <p>{this.state.errorStatus}</p>
       </div>
     )
