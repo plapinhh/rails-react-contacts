@@ -8,26 +8,16 @@ class ContactList extends React.Component {
   }
 
   render(){
-
-    if (!this.props.contacts.length)
+    const contacts = this.props.contacts.map((contact) => {
       return(
-        <div>
-          No contacts
-        </div>
-      )
-    
-    var contacts = this.props.contacts.map((contact) => {
-      return(
-        <div key={contact.id}>
-          <ContactItem contact={contact} removeContact={this.props.removeContact} />
-        </div>
+        <ContactItem contact={contact} key={contact.id} removeContact={this.props.removeContact} />
       )
     })
 
     return(
       <div>
         <h2>Stored contacts</h2>
-        {contacts}
+        {contacts.length ? contacts : 'No added contacts'}
       </div>
     )
   }

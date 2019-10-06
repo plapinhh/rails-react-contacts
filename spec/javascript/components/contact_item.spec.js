@@ -8,6 +8,7 @@ describe('ContactItem component', () => {
       const wrapper = shallow(<ContactItem />)
 
       expect(wrapper.find('ContactShow').length).toBe(1)
+      expect(wrapper.find('ContactEdit').length).toBe(0)
     })
 
     it('render edit/show forms in change after toggling', async () => {
@@ -18,12 +19,13 @@ describe('ContactItem component', () => {
       instance.toggleEdit()
       wrapper.update()
 
-      expect(wrapper.find('ContactForm').length).toBe(1)
-
+      expect(wrapper.find('ContactEdit').length).toBe(1)
+      expect(wrapper.find('ContactShow').length).toBe(0)
 
       instance.toggleEdit()
       wrapper.update()
 
+      expect(wrapper.find('ContactEdit').length).toBe(0)
       expect(wrapper.find('ContactShow').length).toBe(1)
     })
   })

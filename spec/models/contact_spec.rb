@@ -8,5 +8,6 @@ RSpec.describe Contact do
     it { should validate_presence_of(:phone) }
 
     it { should validate_uniqueness_of(:email) }
+    it { should allow_value('user@example.com').for(:email) }
   end
 end

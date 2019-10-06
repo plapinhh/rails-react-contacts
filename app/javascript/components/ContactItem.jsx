@@ -18,16 +18,13 @@ class ContactItem extends React.Component {
   }
   
   render(){
-    if (this.state.editing)
-      return(
-        <div>
-          <ContactEdit contact={this.props.contact} toggleEdit={this.toggleEdit} />
-        </div>
-      )
-
     return(
       <div>
-        <ContactShow contact={this.props.contact} toggleEdit={this.toggleEdit} removeContact={this.props.removeContact} />
+        {this.state.editing ?
+          <ContactEdit contact={this.props.contact} toggleEdit={this.toggleEdit} />
+          :
+          <ContactShow contact={this.props.contact} toggleEdit={this.toggleEdit} removeContact={this.props.removeContact} />
+        }
       </div>
     )      
   }
